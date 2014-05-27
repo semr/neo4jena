@@ -34,7 +34,7 @@ import com.neo4j.jena.graph.NeoGraph;
  */
 
 public class Course {
-	private static final String NEO_STORE = "G:/Work/Data/DumpData/CourseGraph1";
+	private static final String NEO_STORE = "YOUR_DATASTORE_PATH";
 	
 	private static final String inputFileName = "course.ttl" ;
 	
