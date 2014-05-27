@@ -1,0 +1,83 @@
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix foaf:	<http://xmlns.com/foaf/0.1/> .
+@prefix uni:    <http://seecs.edu.pk/db885#> .
+
+uni:Person
+    a    owl:Class .
+    
+uni:Student
+    a        owl:Class ;
+    rdfs:subClassOf uni:Person .
+    
+uni:Professor
+    rdf:type        owl:Class ;
+    rdfs:subClassOf uni:Person .
+    
+uni:Course
+    a   owl:Class .
+    
+uni:knows
+    a   owl:ObjectProperty .
+	
+uni:address
+    a   owl:ObjectProperty .
+	
+uni:street
+    a   owl:DatatypeProperty .
+	
+uni:city
+    a   owl:DatatypeProperty .
+    
+uni:advises
+    a                   owl:ObjectProperty ;
+    rdfs:domain         uni:Professor ;
+    rdfs:range          uni:Student ;
+    rdfs:subPropertyOf  uni:knows .
+    
+uni:takes
+    a           owl:ObjectProperty ;
+    rdfs:domain uni:Student ;
+    rdfs:range  uni:Course .
+    
+uni:teaches
+    a    		owl:ObjectProperty ;
+    rdfs:domain uni:Professor ;
+    rdfs:range  uni:Course .
+    
+uni:AmirHayat
+    a           uni:Professor ;
+    uni:teaches uni:CS101, uni:CS102 ;
+    uni:advises uni:Ali ;
+    uni:advises uni:Hadia .
+    
+uni:NDGohar
+    a           uni:Professor ;
+    uni:teaches uni:CS201, uni:CS202 ;
+    uni:advises uni:Umar ;
+    uni:advises uni:Najma ;
+	uni:address _:n1.
+	
+_:n1 
+	uni:street "10";
+	uni:city   "Islamabad" .
+    
+uni:Ali
+    a           uni:Student ;
+    foaf:name   "Ali Akbar" ;
+    uni:takes   uni:CS101 ;
+    uni:takes   uni:CS202 .
+    
+uni:Umar
+    a           uni:Student ;
+    foaf:name   "Umar Ahmad" ;
+    uni:takes   uni:CS101 ;
+    uni:takes   uni:CS102 .
+
+uni:Usman
+    a           uni:Student ;
+    foaf:name   "Usman Khawar" ;
+    uni:takes   uni:CS201 .
+    
