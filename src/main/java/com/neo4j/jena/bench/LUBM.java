@@ -33,7 +33,7 @@ import com.neo4j.jena.graph.NeoGraph;
  */
 
 public class LUBM {
-	private static final String NEO_STORE = "G:/Work/Data/DumpData/UniversityData";
+	private static final String NEO_STORE = "YOUR_NEOSTORE_PATH";
 	
 	private static final String inputFileName = "University.rdf" ;
 	
