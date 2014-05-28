@@ -31,7 +31,7 @@ import org.neo4j.graphdb.schema.Schema;
  * @author Khalid Latif, Mahek Hanfi
  */
 public class Wine {
-	private static final String NEO_STORE = "G:/Work/Data/DumpData/Wine2";
+	private static final String NEO_STORE = "YOUR_NEOSTORE_PATH";
 	
 	private static final String inputFileName = "wine.owl" ;
 
