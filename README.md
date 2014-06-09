@@ -10,3 +10,5 @@ Neo4Jena is a property graph model interface. It provides the mapping of RDF to 
 * After the successful loading of RDF triples in graph Neo4Jena retrieve the data using SPARQL. For this neo4j nodes and relationship is converted to RDF triples (subject, predicate and object).
 * Neo4Jena has full support of SPARQL 1.1.
 
+How to use Neo4Jena?
+--------------------
