@@ -1,5 +1,7 @@
 Neo4Jena
 ========
+Overview
+--------
 
 For the integration of Jena and neo4j we have implemented Jena graph interfaces using neo4j native API.
 Neo4Jena is a property graph model interface. It provides the mapping of RDF to property graph (Neo4J) using Jena API.  The main work focuses on how RDF triple is converted to Neo4j graph and vice versa. After the successful loading of RDF in graph we retrieve the data using SPARQL.  We made the following contributions:
