@@ -15,11 +15,15 @@ How to use Neo4Jena?
 
 Create a Jena model and read RDF file/triples in it.
 
+```
+
 Model model = ModelFactory.createDefaultModel();
 
 InputStream in = FileManager.get().open( inputFileName );
 
 model.read(in,"","TTL"); { Alternatively model.read(in,"","RDF") }
+
+```
 
 For initialization of NeoGraph there are two constructors.
 * public NeoGraph(final String directory)
@@ -27,10 +31,14 @@ For initialization of NeoGraph there are two constructors.
 
 After initialization an instance of NeoGraph is created. Then create a Jena model for graph and pass NeoGraph instance as parameter.
 
+```
 Model njmodel = ModelFactory.createModelForGraph(graph);
+```
 
 Load triples from model into njmodel.
 
+```
 njmodel.add(model);
+```
 
 For optimization purpose, call NeoGraph method startBulkLoad() before loading triples and stopBulkLoad() after loading is finished.
