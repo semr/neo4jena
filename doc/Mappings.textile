@@ -1,1 +1,6 @@
 h2. Mapping RDF to Neo4j
+
+RDF triple consist of subject, predicate and object. 
+* Subjects in rdf triples are URIs or blank nodes.
+* All predicates are URIs.
+* Objects can be URIs, blank nodes or literal values. 
