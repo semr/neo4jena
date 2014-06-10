@@ -5,4 +5,4 @@ RDF triple consist of subject, predicate and object.
 * All predicates are URIs.
 * Objects can be URIs, blank nodes or literal values. 
 
-!https://github.com/semr/neo4jena/doc/Images/Picture1.png!
+!https://github.com/semr/neo4jena/blob/master/doc/Images/Picture1.png!
