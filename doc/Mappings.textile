@@ -44,7 +44,7 @@ Subjects and objects when mapped in neo4j node have label *uri* while literal va
 h3. Example 3
 
 This RDF statement has:
-a subject http://www.example.org/staffid/85740
+* a subject http://www.example.org/staffid/85740
 * a predicate http://example.org/terms/age
 * and an object "27" which is a literal value.
 
