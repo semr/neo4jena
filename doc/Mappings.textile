@@ -1,1 +1,1 @@
-# Mapping RDF to Neo4j
+# Mapping
