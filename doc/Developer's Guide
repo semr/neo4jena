@@ -1,5 +1,4 @@
-How to use Neo4Jena?
---------------------
+h2. How to use Neo4Jena?
 
 Create a Jena model and read RDF file/triples in it.
 
