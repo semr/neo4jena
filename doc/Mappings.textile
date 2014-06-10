@@ -6,13 +6,53 @@ RDF triple consist of subject, predicate and object.
 * Objects can be URIs, blank nodes or literal values. 
 
 When mapping RDF to Neo4j following points are taken in considertaion:
-* Each neo4j node has a label which can be *uri* , *literal* and *bnode*.
-* Nodes having label *uri* and *bnode* have one property (key-value pair)
+* Each neo4j node has a label that is either *uri* , *literal* or *bnode*.
+* Nodes having label *uri* or *bnode* have one property 
 ** uri
 * Nodes having label *literal* have three properties
 ** value 
 ** datatype
 ** lang
 
-Follwing figure shows an RDF resource having URI <http://seecs.edu.pk/db885#AmirHayat> and demostrats how this resource is modeled in Neo4j.
+Follwing figure demostrats how uri and literals are modeled in Neo4j.
+
+!https://github.com/semr/neo4jena/raw/master/doc/images/sample.PNG!
+
+h3. Example 1
+
+!http://www.w3.org/TR/2004/REC-rdf-primer-20040210/fig2dec16.png!
+
+The above RDF statment is taken from RDF primer. The following figure shows how this statement is represented in Neo4j
+
+!https://github.com/semr/neo4jena/raw/master/doc/Images/example1.PNG!
+
+h3. Example 2
+
+*RDF Statment*
+
+!http://www.w3.org/TR/2004/REC-rdf-primer-20040210/fig3nov19.png!
+
+*Neo4j mapping*
+
+!https://github.com/semr/neo4jena/raw/master/doc/Images/example2.PNG!
+
+h3. Example 3
+
+*RDF Statment*
+
+!http://www.w3.org/TR/2004/REC-rdf-primer-20040210/fig8jul23.png!
+
+*Neo4j mapping*
+
+!https://github.com/semr/neo4jena/raw/master/doc/Images/example3.PNG!
+
+h3. Example 4
+
+*RDF Statment*
+
+!http://www.w3.org/TR/2004/REC-rdf-primer-20040210/fig13dec16.png!
+
+*Neo4j mapping*
+
+!https://github.com/semr/neo4jena/raw/master/doc/Images/example4.PNG!
 
