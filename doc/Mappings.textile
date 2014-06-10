@@ -20,39 +20,47 @@ Follwing figure demostrats how uri and literals are modeled in Neo4j.
 
 h3. Example 1
 
+The following RDF statment is taken from RDF primer. This RDF statement have: 
+* a subject http://www.example.org/index.html
+* a predicate http://purl.org/dc/elements/1.1/creator
+* and an object http://www.example.org/staffid/85740
+
 !http://www.w3.org/TR/2004/REC-rdf-primer-20040210/fig2dec16.png!
 
-The above RDF statment is taken from RDF primer. The following figure shows how this statement is represented in Neo4j
+The subject and object are resources so while mapping them neo4j node has label *uri*.The following figure shows how this statement is represented in Neo4j. (In mapping prefixes are used)
 
 !https://github.com/semr/neo4jena/raw/master/doc/Images/example1.PNG!
 
 h3. Example 2
 
-*RDF Statment*
+Following figure have multiple statements about the same subject. The object can be a URI or literal value.
 
 !http://www.w3.org/TR/2004/REC-rdf-primer-20040210/fig3nov19.png!
 
-*Neo4j mapping*
 
+Subjects and objects when mapped in neo4j node have label *uri* while literal values have label *literal*. The properties of *uri* and *literals* are different. 
 !https://github.com/semr/neo4jena/raw/master/doc/Images/example2.PNG!
 
 h3. Example 3
 
-*RDF Statment*
+This RDF statement has:
+a subject http://www.example.org/staffid/85740
+* a predicate http://example.org/terms/age
+* and an object "27" which is a literal value.
 
 !http://www.w3.org/TR/2004/REC-rdf-primer-20040210/fig8jul23.png!
 
-*Neo4j mapping*
+The subject is a resource so while mapping them neo4j node has label *uri*.Literal values can have their datatype and language as well. 
 
 !https://github.com/semr/neo4jena/raw/master/doc/Images/example3.PNG!
 
 h3. Example 4
 
-*RDF Statment*
+Subject and object can also be a blank node (a resource having no URI)
 
 !http://www.w3.org/TR/2004/REC-rdf-primer-20040210/fig13dec16.png!
 
-*Neo4j mapping*
+While mapping blank node the neo4j node has label *bnode*.
 
 !https://github.com/semr/neo4jena/raw/master/doc/Images/example4.PNG!
 
