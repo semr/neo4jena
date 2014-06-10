@@ -16,13 +16,11 @@ How to use Neo4Jena?
 Create a Jena model and read RDF file/triples in it.
 
 ```
-
 Model model = ModelFactory.createDefaultModel();
 
 InputStream in = FileManager.get().open( inputFileName );
 
 model.read(in,"","TTL"); { Alternatively model.read(in,"","RDF") }
-
 ```
 
 For initialization of NeoGraph there are two constructors.
