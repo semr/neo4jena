@@ -5,4 +5,14 @@ RDF triple consist of subject, predicate and object.
 * All predicates are URIs.
 * Objects can be URIs, blank nodes or literal values. 
 
-!https://github.com/semr/neo4jena/blob/master/doc/Images/Picture1.png!
+When mapping RDF to Neo4j following points are taken in considertaion:
+* Each neo4j node has a label which can be *uri* , *literal* and *bnode*.
+* Nodes having label *uri* and *bnode* have one property (key-value pair)
+** uri
+* Nodes having label *literal* have three properties
+** value 
+** datatype
+** lang
+
+Follwing figure shows an RDF resource having URI <http://seecs.edu.pk/db885#AmirHayat> and demostrats how this resource is modeled in Neo4j.
+
