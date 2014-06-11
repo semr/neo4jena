@@ -1,2 +1,28 @@
 h2. How to use Neo4Jena?
 
+Create a Jena model and read RDF file/triples in it.
+
+```java
+Model model = ModelFactory.createDefaultModel();
+InputStream in = FileManager.get().open( inputFileName );
+model.read(in,"","TTL"); { Alternatively model.read(in,"","RDF") }
+```
+
+For initialization of NeoGraph there are two constructors.
+* public NeoGraph(final String directory)
+* public NeoGraph(final GraphDatabaseService graphdb)
+
+After initialization an instance of NeoGraph is created. Then create a Jena model for graph and pass NeoGraph instance as parameter.
+
+```java
+Model njmodel = ModelFactory.createModelForGraph(graph);
+```
+
+Load triples from model into njmodel.
+
+```java
+njmodel.add(model);
+```
+
+For optimization purpose, call NeoGraph method startBulkLoad() before loading triples and stopBulkLoad() after loading is finished.
+
