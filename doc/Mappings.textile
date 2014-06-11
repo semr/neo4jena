@@ -16,7 +16,7 @@ When mapping RDF to Neo4j following points are taken in considertaion:
 
 Follwing figure demostrats how uri and literals are modeled in Neo4j.
 
-!https://github.com/semr/neo4jena/raw/master/doc/images/sample.PNG!
+!https://github.com/semr/neo4jena/raw/master/doc/image/sample.PNG!
 
 h3. Example 1
 
@@ -29,7 +29,7 @@ The following RDF statment is taken from RDF primer. This RDF statement have:
 
 The subject and object are resources so while mapping them neo4j node has label *uri*.The following figure shows how this statement is represented in Neo4j. (In mapping prefixes are used)
 
-!https://github.com/semr/neo4jena/raw/master/doc/Images/example1.PNG!
+!https://github.com/semr/neo4jena/raw/master/doc/image/example1.PNG!
 
 h3. Example 2
 
@@ -39,7 +39,7 @@ Following figure have multiple statements about the same subject. The object can
 
 
 Subjects and objects when mapped in neo4j node have label *uri* while literal values have label *literal*. The properties of *uri* and *literals* are different. 
-!https://github.com/semr/neo4jena/raw/master/doc/Images/example2.PNG!
+!https://github.com/semr/neo4jena/raw/master/doc/image/example2.PNG!
 
 h3. Example 3
 
@@ -52,7 +52,7 @@ This RDF statement has:
 
 The subject is a resource so while mapping them neo4j node has label *uri*.Literal values can have their datatype and language as well. 
 
-!https://github.com/semr/neo4jena/raw/master/doc/Images/example3.PNG!
+!https://github.com/semr/neo4jena/raw/master/doc/image/example3.PNG!
 
 h3. Example 4
 
@@ -62,5 +62,5 @@ Subject and object can also be a blank node (a resource having no URI)
 
 While mapping blank node the neo4j node has label *bnode*.
 
-!https://github.com/semr/neo4jena/raw/master/doc/Images/example4.PNG!
+!https://github.com/semr/neo4jena/raw/master/doc/image/example4.PNG!
 
