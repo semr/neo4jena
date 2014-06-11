@@ -11,4 +11,4 @@ Neo4Jena is a property graph model interface. It provides the mapping of RDF to 
 * Neo4Jena has full support of SPARQL 1.1.
 
 
-The mappings of RDF to Neo4j can be found at this [location](https://github.com/semr/neo4jena/wiki/Mappings). The [developer guide](https://github.com/semr/neo4jena/wiki/Developer's-Guide) is also available.
+The mappings of RDF to Neo4j can be found at this [location](https://github.com/semr/neo4jena/blob/master/doc/Mappings.textile). The [developer guide](https://github.com/semr/neo4jena/blob/master/doc/Developer's-Guide.textile) is also available.
