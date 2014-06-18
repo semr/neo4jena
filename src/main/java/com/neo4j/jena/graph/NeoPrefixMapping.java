@@ -1,9 +1,12 @@
 package com.neo4j.jena.graph;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
+import org.neo4j.cypher.internal.compiler.v2_0.functions.Str;
 import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Transaction;
 
 import com.hp.hpl.jena.shared.PrefixMapping;
 
@@ -18,20 +21,32 @@ public class NeoPrefixMapping implements PrefixMapping {
 	
 	/** Neo4J node */
 	private Node delegate;
+	private PrefixMapping proxy = PrefixMapping.Factory.create();
 	
 	/**
 	 * Initializes this node.
 	 */
 	public NeoPrefixMapping(Node node) {
-		this.delegate = node;
+		this(node, new HashMap<String, String>());
 	}
+
+	public NeoPrefixMapping(Node node, PrefixMapping pmap) {
+		this(node, pmap.getNsPrefixMap());
+	}
+	
+	public NeoPrefixMapping(Node node, Map<String, String> map) {
+		this.delegate = node;
+		if(map!=null)
+			setNsPrefixes(map);
+	}	
 
 	/**
 	 * Set the prefix
 	 */
 	@Override
 	public PrefixMapping setNsPrefix(String prefix, String uri) {
-		delegate.setProperty(prefix, uri);
+		proxy.setNsPrefix(prefix, uri);
+		//delegate.setProperty(prefix, uri);
 		return this;
 	}
 
@@ -40,7 +55,8 @@ public class NeoPrefixMapping implements PrefixMapping {
 	 */
 	@Override
 	public PrefixMapping removeNsPrefix(String prefix) {
-		delegate.removeProperty(prefix);
+		//delegate.removeProperty(prefix);
+		proxy.removeNsPrefix(prefix);
 		return this;
 	}
 
@@ -49,7 +65,7 @@ public class NeoPrefixMapping implements PrefixMapping {
 	 */
 	@Override
 	public PrefixMapping setNsPrefixes(PrefixMapping other) {
-		return(setNsPrefixes(other.getNsPrefixMap()));
+		return setNsPrefixes(other.getNsPrefixMap());
 	}
 
 	@Override
@@ -62,11 +78,12 @@ public class NeoPrefixMapping implements PrefixMapping {
 
 	@Override
 	public PrefixMapping withDefaultMappings(PrefixMapping map) {
-		Map<String, String> copy = map.getNsPrefixMap();
+		/*(Map<String, String> copy = map.getNsPrefixMap();
 		for(String prefix: delegate.getPropertyKeys()) {
 			copy.remove(prefix);
 		}
-		return setNsPrefixes(copy);
+		return setNsPrefixes(copy);*/
+		return proxy.withDefaultMappings(map);
 	}
 
 	/**
@@ -74,7 +91,8 @@ public class NeoPrefixMapping implements PrefixMapping {
 	 */
 	@Override
 	public String getNsPrefixURI(String prefix) {
-		return (String)delegate.getProperty(prefix);
+		//return (String)delegate.getProperty(prefix);
+		return proxy.getNsPrefixURI(prefix);
 	}
 
 	/**
@@ -82,11 +100,12 @@ public class NeoPrefixMapping implements PrefixMapping {
 	 */
 	@Override
 	public String getNsURIPrefix(String uri) {
-		for(String prefix:delegate.getPropertyKeys()) {
+		return proxy.getNsURIPrefix(uri);
+		/*for(String prefix:delegate.getPropertyKeys()) {
 			if(uri.equals(delegate.getProperty(prefix)))
 				return prefix;
 		}
-		return null;
+		return null;*/
 	}
 
 	/**
@@ -94,11 +113,12 @@ public class NeoPrefixMapping implements PrefixMapping {
 	 */
 	@Override
 	public Map<String, String> getNsPrefixMap() {
-		Map<String, String> map = new HashMap<String, String>();
+		/*Map<String, String> map = new HashMap<String, String>();
 		for(String prefix: delegate.getPropertyKeys()) {
 			map.put(prefix, delegate.getProperty(prefix).toString());
 		}
-		return map;
+		return map;*/
+		return proxy.getNsPrefixMap();
 	}
 
 	@Override
@@ -113,15 +133,18 @@ public class NeoPrefixMapping implements PrefixMapping {
 
 	@Override
 	public String shortForm(String uri) {
-		int index = uri.lastIndexOf('#');
-		if(index!=-1) {
-			//TODO
+		/*int index = uri.lastIndexOf('#');
+		if(index==-1) {
+			index = uri.lastIndexOf('/');
 		}
-		index = uri.lastIndexOf('/');
-		if(index!=-1) {
-			//TODO
-		}
-		return uri;
+		if(index>0) {
+			String ns = uri.substring(0, index);
+			String local = uri.substring(index+1);
+			return ns+":"+local;
+		} else {
+			return uri;
+		}*/
+		return proxy.shortForm(uri);
 	}
 
 	@Override

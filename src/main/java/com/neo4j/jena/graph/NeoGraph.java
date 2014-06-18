@@ -63,6 +63,9 @@ public class NeoGraph implements Graph {
 	/** Factory for unique relationships */
 	final UniqueRelationshipFactory relationshipFactory;
 	
+	/** Prefix mappings */
+	PrefixMapping mapping;
+	
 	/**
 	 * Loads Neo4J graph from given directory.
 	 * 
@@ -78,11 +81,8 @@ public class NeoGraph implements Graph {
 	public NeoGraph(final GraphDatabaseService graphdb) {
 		this.graphdb = graphdb;
 		try(Transaction tx = graphdb.beginTx()) {
-			nodeFactory = new UniqueNodeFactory(graphdb);
-			relationshipFactory = new UniqueRelationshipFactory(graphdb);
-			//START n=node:node_auto_index(name='Neo'), t= node:node_auto_index(name='The Architect') 
-			// CREATE UNIQUE n-[r:SPEAKES_WITH]-t 
-			//RETURN n AS Neo,r
+			nodeFactory = new UniqueNodeFactory(graphdb, this);
+			relationshipFactory = new UniqueRelationshipFactory(graphdb, this);
 		}
 	}
 	
@@ -260,14 +260,16 @@ public class NeoGraph implements Graph {
 	
 	@Override
 	public PrefixMapping getPrefixMapping() {
-		PrefixMapping standard = PrefixMapping.Factory.create()
+		if(mapping==null)  {
+			PrefixMapping standard = PrefixMapping.Factory.create()
 				.setNsPrefix( "rdfs", RDFS.getURI() )
-		        .setNsPrefix( "rdf", RDF.getURI() )
-		        .setNsPrefix( "dc", DC_11.getURI() )
-		        .setNsPrefix( "owl", OWL.getURI() )
-		        .setNsPrefix( "xsd", XSD.getURI() )
-		        ;
-		return standard; //FIXME
+				.setNsPrefix( "rdf", RDF.getURI() )
+				.setNsPrefix( "dc", DC_11.getURI() )
+				.setNsPrefix( "owl", OWL.getURI() )
+				.setNsPrefix( "xsd", XSD.getURI() );
+			mapping = new NeoPrefixMapping(null, standard);
+		}
+		return mapping;
 	}
 	
 	@Override

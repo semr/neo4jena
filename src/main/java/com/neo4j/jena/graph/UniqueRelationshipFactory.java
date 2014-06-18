@@ -7,6 +7,8 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.RelationshipType;
 
+import com.hp.hpl.jena.graph.Graph;
+
 /**
  * Jena graph wrapper for Neo4J graph database service.
  * 
@@ -17,8 +19,12 @@ public class UniqueRelationshipFactory {
 	
 	//private final GraphDatabaseService graphdb;
 	
-	public UniqueRelationshipFactory(GraphDatabaseService graphdb) {
+	/** Reference to Jena Graph */
+	private final Graph graph;
+	
+	public UniqueRelationshipFactory(GraphDatabaseService graphdb, Graph graph) {
 		//this.graphdb = graphdb;
+		this.graph = graph;
 	}
 	
 	/**
@@ -26,7 +32,8 @@ public class UniqueRelationshipFactory {
 	 * or creates one.
 	 */
 	public Relationship getOrCreate(Node subject, String predicate, Node object) {
-		return getOrCreate(subject, RelationshipTypeFactory.getType(predicate), object);
+		String prefixed = graph.getPrefixMapping().shortForm(predicate);
+		return getOrCreate(subject, RelationshipTypeFactory.getType(prefixed), object);
 	}
 	
 	/**
@@ -57,7 +64,8 @@ public class UniqueRelationshipFactory {
 	 * @return Relationship if exists or null.
 	 */
 	public Relationship get(Node subject, String predicate, Node object) {
-		return get(subject,RelationshipTypeFactory.getType(predicate), object);
+		String prefixed = graph.getPrefixMapping().shortForm(predicate);
+		return get(subject,RelationshipTypeFactory.getType(prefixed), object);
 	}
 	
 	/**

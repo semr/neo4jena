@@ -10,8 +10,8 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.ResourceIterator;
 import org.neo4j.graphdb.index.UniqueFactory;
 
+import com.hp.hpl.jena.graph.Graph;
 import com.neo4j.jena.bench.StopWatch;
-
 
 
 /**
@@ -22,10 +22,21 @@ import com.neo4j.jena.bench.StopWatch;
 
 public class UniqueNodeFactory extends UniqueFactory.UniqueNodeFactory {
 	
+	/** Holds nodes in memory during bulk loading */
 	private Map<com.hp.hpl.jena.graph.Node, Node> bulkNodes;
+	
+	/** Reference to Jena Graph */
+	private final Graph graph;
 
-	public UniqueNodeFactory(GraphDatabaseService graphdb) {
+	/**
+	 * Initialize the factory.
+	 * 
+	 * @param A GraphDatabaseService instance to store newly create node.
+	 * @param A Jena graph to process new node creation.
+	 */
+	public UniqueNodeFactory(GraphDatabaseService graphdb, Graph graph) {
 		super(graphdb, "Resources");
+		this.graph = graph;
 	}
 
 	/**
@@ -66,7 +77,8 @@ public class UniqueNodeFactory extends UniqueFactory.UniqueNodeFactory {
 	        }
 		} else {
 			Label label = DynamicLabel.label(NeoGraph.LABEL_URI);
-			try ( ResourceIterator<org.neo4j.graphdb.Node> nodes = super.graphDatabase().findNodesByLabelAndProperty( label, NeoGraph.PROPERTY_URI, node.getURI()).iterator() ) {
+			String prefixed = graph.getPrefixMapping().shortForm(node.getURI());
+			try ( ResourceIterator<org.neo4j.graphdb.Node> nodes = super.graphDatabase().findNodesByLabelAndProperty( label, NeoGraph.PROPERTY_URI, prefixed).iterator() ) {
 	            if ( nodes.hasNext() ) {
 	            	neoNode = nodes.next();
 	            }
@@ -119,8 +131,9 @@ public class UniqueNodeFactory extends UniqueFactory.UniqueNodeFactory {
 				created.setProperty(NeoGraph.PROPERTY_URI, node.getBlankNodeId().toString());
 			
 		} else {
+			String prefixed = graph.getPrefixMapping().shortForm(node.getURI());
 			// Back to normal procedure for resources
-			created = getOrCreate(NeoGraph.PROPERTY_URI, node.getURI());
+			created = getOrCreate(NeoGraph.PROPERTY_URI, prefixed);
 		}
 		
 		//System.out.println("Get or create " + node + " took:" + watch.stop());
