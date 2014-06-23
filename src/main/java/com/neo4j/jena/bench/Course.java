@@ -5,6 +5,7 @@
 package com.neo4j.jena.bench;
 
 import java.io.InputStream;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
@@ -21,6 +22,7 @@ import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.query.ResultSetFormatter;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
@@ -34,7 +36,7 @@ import com.neo4j.jena.graph.NeoGraph;
  */
 
 public class Course {
-	private static final String NEO_STORE = "YOUR_NEOSTORE_PATH";
+	private static final String NEO_STORE = "G:/Work/Data/DumpData/Course53";
 	
 	private static final String inputFileName = "course.ttl" ;
 	
@@ -56,9 +58,9 @@ public class Course {
 		String s2 = "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n" +
                 	"PREFIX uni: <http://seecs.edu.pk/db885#>" +
                 	"PREFIX foaf: <http://xmlns.com/foaf/0.1/> " +
-                "SELECT ?X ?Y "+
+                "SELECT ?X ?Z ?Y "+
                 "WHERE" +
-                "{ ?X foaf:name ?Y ." +
+                "{ ?X ?Z ?Y ." +
                 "}"; 
        	          
         Query query = QueryFactory.create(s2); 
@@ -67,19 +69,18 @@ public class Course {
         ResultSet results = qExe.execSelect();
         log.info("Query took (ms): "+ watch.stop());
         System.out.println("Query took (ms): "+ watch.stop());
-        //ResultSetFormatter.out(System.out, results);
+       // ResultSetFormatter.out(System.out, results);
         
         int count=0;
         while(results.hasNext()){
         	//System.out.println("in while"+count);
         	QuerySolution sol = results.next();
-        	System.out.println(sol.get("Y"));
+        	System.out.println(sol.get("?Z"));
         	count++;
         }
        
        log.info("Record fetched:"+ count);
        System.out.println("Record fetched:"+ count);
-       
 	}
 	
 	public static void ensureIndex(GraphDatabaseService njgraph) {
@@ -99,10 +100,7 @@ public class Course {
         }
 	}
 	
-	
-	
 	public static void write(GraphDatabaseService njgraph) {
-		Logger log= Logger.getLogger(Wine.class);
 		InputStream in = FileManager.get().open( inputFileName );
 		if (in == null) {
             throw new IllegalArgumentException( "File: " + inputFileName + " not found");
@@ -113,8 +111,11 @@ public class Course {
         double triples = model.size();
         log.info("Model loaded with " +  triples + " triples");
         System.out.println("Model loaded with " +  triples + " triples");
+        Map<String, String> prefixMap = model.getNsPrefixMap();
+       // System.out.println("Prefix Mapping: " + prefixMap);
         
 		NeoGraph graph = new NeoGraph(njgraph);
+		graph.getPrefixMapping().setNsPrefixes(prefixMap);
 		graph.startBulkLoad();
 		log.info("Connection created");
 		Model njmodel = ModelFactory.createModelForGraph(graph);

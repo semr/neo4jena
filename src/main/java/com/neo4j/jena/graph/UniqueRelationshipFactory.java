@@ -54,7 +54,7 @@ public class UniqueRelationshipFactory {
 	 */
 	public Relationship create(Node subject, RelationshipType type, Node object) {
 		Relationship relation = subject.createRelationshipTo(object, type);
-		relation.setProperty(NeoGraph.PROPERTY_URI, type.name());
+		//relation.setProperty(NeoGraph.PROPERTY_URI, type.name());
 		return relation;
 	}
 	

@@ -123,12 +123,13 @@ public class NeoPrefixMapping implements PrefixMapping {
 
 	@Override
 	public String expandPrefix(String prefixed) {
-		int index = prefixed.indexOf(':');
+		/*int index = prefixed.indexOf(':');
 		if(index==-1)
 			return prefixed;
 		String uri = getNsPrefixURI(prefixed.substring(0,index+1));
 		System.out.println(prefixed+"<>"+index+"<>"+uri+"<>"+prefixed.substring(index+1));
-		return uri + prefixed.substring(index+1);
+		return uri + prefixed.substring(index+1);*/
+		return proxy.expandPrefix(prefixed);
 	}
 
 	@Override

@@ -14,6 +14,7 @@ import org.neo4j.graphdb.ResourceIterator;
 import org.neo4j.graphdb.Transaction;
 
 import com.hp.hpl.jena.graph.Triple;
+import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 import com.hp.hpl.jena.util.iterator.Filter;
 import com.hp.hpl.jena.util.iterator.Map1;
@@ -68,7 +69,7 @@ public class ExecutionResultIterator implements ExtendedIterator<Triple> {
 		//System.out.println("Subject: "+ new JenaNeoNode((Node)row.get("subject")));
 		
 		Triple t = new Triple(new JenaNeoNode((Node)row.get("subject")),
-				new JenaNeoNode((PropertyContainer)row.get("predicate")),
+				ResourceFactory.createProperty((String)row.get("type(predicate)")).asNode(),
 				new JenaNeoNode((Node)row.get("object")));
 		return t;
 		}

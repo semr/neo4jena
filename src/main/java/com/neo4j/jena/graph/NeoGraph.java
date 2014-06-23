@@ -206,16 +206,11 @@ public class NeoGraph implements Graph {
 				//System.out.println("NeoGraph#find#URI:"+subject+subject.getURI());
 			} else {
 				query.append(":" + LABEL_BNODE);
-				System.out.println("NeoGraph#find#"+subject);
+				//System.out.println("NeoGraph#find#"+subject);
 			}
-			query.append(")-[predicate ");
+			query.append(")-[predicate]->(object");
 			
-			if(predicate.isURI()) {
-				query.append("{uri:'");
-				query.append(predicate.getURI());
-				query.append("'}");
-			}
-			query.append("]->(object");
+			//query.append("]->(object");
 			if(object.equals(Node.ANY)) {
 				//query.append(" ");
 			} else if(object.isURI()){
@@ -229,7 +224,14 @@ public class NeoGraph implements Graph {
 			}
 			query.append(")");
 			
-			query.append("\nRETURN subject, predicate, object");
+			//System.out.println("Predicate in query: " +getPrefixMapping().shortForm(predicate.getURI()));
+			if(predicate.isURI()) {
+				query.append("WHERE type(predicate)='");
+				query.append(getPrefixMapping().shortForm(predicate.getURI()));
+				query.append("'");
+			}
+			
+			query.append("\nRETURN subject, type(predicate), object");
 			//System.out.println(query.toString());
 			ExecutionEngine engine = new ExecutionEngine(graphdb);
 			ExecutionResult results = engine.execute(query.toString());
@@ -313,7 +315,6 @@ public class NeoGraph implements Graph {
 	@Override
 	public void remove(Node arg0, Node arg1, Node arg2) {
 		throw new RuntimeException(new MethodNotSupportedException("remove"));
-		
 	}
 
 	@Override
