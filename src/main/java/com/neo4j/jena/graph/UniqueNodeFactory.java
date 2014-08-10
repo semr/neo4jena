@@ -11,7 +11,6 @@ import org.neo4j.graphdb.ResourceIterator;
 import org.neo4j.graphdb.index.UniqueFactory;
 
 import com.hp.hpl.jena.graph.Graph;
-import com.neo4j.jena.bench.StopWatch;
 
 
 /**
@@ -125,7 +124,6 @@ public class UniqueNodeFactory extends UniqueFactory.UniqueNodeFactory {
 				created.setProperty(NeoGraph.PROPERTY_LANGUAGE, node.getLiteralLanguage());
 			return created;
 		} else if(node.isBlank()) {
-			// FIXME Handle blank node
 				Label label = DynamicLabel.label(NeoGraph.LABEL_BNODE);
 				created = super.graphDatabase().createNode(label);
 				created.setProperty(NeoGraph.PROPERTY_URI, node.getBlankNodeId().toString());

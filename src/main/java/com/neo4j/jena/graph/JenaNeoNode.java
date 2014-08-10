@@ -152,7 +152,7 @@ public class JenaNeoNode extends Node_Concrete {
 	 
 	 @Override
 	 public LiteralLabel getLiteral() {
-		 Transaction tx = graphDb.beginTx();
+		 graphDb.beginTx();
 		 String value = delegate.getProperty(NeoGraph.PROPERTY_VALUE).toString();
 		 String language = null;
 		 RDFDatatype datatype = null;
@@ -171,7 +171,7 @@ public class JenaNeoNode extends Node_Concrete {
 	 
 	 @Override
 	 public String getLiteralLexicalForm(){
-		 Transaction tx = graphDb.beginTx();
+		 graphDb.beginTx();
 		 String value = delegate.getProperty(NeoGraph.PROPERTY_VALUE).toString();
 		 return value;
 	 }
@@ -181,7 +181,7 @@ public class JenaNeoNode extends Node_Concrete {
 	  */
 	 @Override
 	 public Object getLiteralValue() {
-		 Transaction tx = graphDb.beginTx();
+		 graphDb.beginTx();
 		 return delegate.getProperty(NeoGraph.PROPERTY_VALUE);
 	 }
 	 
@@ -190,7 +190,7 @@ public class JenaNeoNode extends Node_Concrete {
 	  */
 	 @Override
 	 public String getLiteralLanguage() {
-		 Transaction tx = graphDb.beginTx();
+		 graphDb.beginTx();
 		 if(delegate.hasProperty(NeoGraph.PROPERTY_LANGUAGE))
 			 return delegate.getProperty(NeoGraph.PROPERTY_LANGUAGE).toString();
 		 else
@@ -202,7 +202,7 @@ public class JenaNeoNode extends Node_Concrete {
 	  */
 	 @Override
 	 public String getLiteralDatatypeURI(){
-		 Transaction tx = graphDb.beginTx();
+		 graphDb.beginTx();
 		 if(delegate.hasProperty(NeoGraph.PROPERTY_DATATYPE))
 			 return delegate.getProperty(NeoGraph.PROPERTY_DATATYPE).toString();
 		 else
@@ -211,7 +211,7 @@ public class JenaNeoNode extends Node_Concrete {
 	 
 	 @Override
 	 public RDFDatatype getLiteralDatatype(){
-		 Transaction tx = graphDb.beginTx();
+		 graphDb.beginTx();
 		 RDFDatatype datatype = null;
 		 TypeMapper mapper = new TypeMapper();
 		 if(delegate.hasProperty(NeoGraph.PROPERTY_DATATYPE))
@@ -224,7 +224,7 @@ public class JenaNeoNode extends Node_Concrete {
 	  */
 	 @Override
 	 public boolean isVariable(){ 
-		 Transaction tx = graphDb.beginTx();
+		 graphDb.beginTx();
 		 return false; 
 	 }
 	 
@@ -252,7 +252,7 @@ public class JenaNeoNode extends Node_Concrete {
 	 @Override
 	 public boolean sameValueAs(Object o) {
 		// System.out.println("Same value as");
-		 Transaction tx = graphDb.beginTx();
+		 graphDb.beginTx();
 		 com.hp.hpl.jena.graph.Node n = (com.hp.hpl.jena.graph.Node)o;
 		 if(n.isLiteral() && isLiteral()) {
 			 // TODO ((LiteralLabel)label).sameValueAs( ((Node_Literal) o).getLiteral() )
@@ -272,7 +272,7 @@ public class JenaNeoNode extends Node_Concrete {
 	public boolean equals(Object o) {
 		if(this==o) return true;
 		
-		Transaction tx = graphDb.beginTx();
+		graphDb.beginTx();
 		//System.out.println("Equal method");
 		if(o instanceof Node) {
 			//System.out.println("It is instance of Neo4j node");
