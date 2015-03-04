@@ -22,11 +22,11 @@ RDF triple consist of subject, predicate and object.
 When mapping RDF to Neo4j following points are taken in considertaion:
 * Each neo4j node has a label that is either **uri** , **literal** or **bnode**.
 * Nodes having label **uri** or **bnode** have one property 
-** uri
-* Nodes having label *literal* have three properties
-** value 
-** datatype
-** lang
+  * uri
+* Nodes having label **literal** have three properties
+  * value
+  * datatype
+  * lang
 
 Follwing figure demostrats how uri and literals are modeled in Neo4j.
 
