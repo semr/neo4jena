@@ -20,8 +20,8 @@ RDF triple consist of subject, predicate and object.
 * Objects can be URIs, blank nodes or literal values. 
 
 When mapping RDF to Neo4j following points are taken in considertaion:
-* Each neo4j node has a label that is either *uri* , *literal* or *bnode*.
-* Nodes having label *uri* or *bnode* have one property 
+* Each neo4j node has a label that is either **uri** , **literal** or **bnode**.
+* Nodes having label **uri** or **bnode** have one property 
 ** uri
 * Nodes having label *literal* have three properties
 ** value 
@@ -141,5 +141,18 @@ model.read(in,"","TTL");
 handler.close();
 ```
 
+### Search RDF data with Sparql
 
-
+```java
+String queryString = "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n" +
+            	"PREFIX ub: <http://swat.cse.lehigh.edu/onto/univ-bench.owl#>" +
+                "SELECT ?X ?name "+
+                "WHERE" +
+                "{ ?X ub:name ?name ." +
+                 "FILTER regex(?name,\"^Publication\") ."+
+                "}"; 
+       	          
+        Query query = QueryFactory.create(queryString);
+        QueryExecution qExe = QueryExecutionFactory.create(query, njmodel);
+        ResultSet results = qExe.execSelect();
+```
