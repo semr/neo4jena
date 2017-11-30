@@ -59,7 +59,7 @@ The subject is a resource so while mapping them neo4j node has label *uri*.Liter
 ![alt tag](https://github.com/semr/neo4jena/raw/master/doc/image/example3.PNG)
 
 
-###  Example: Multiple Statemnets including Literal values
+###  Example: Multiple Statements including Literal values
 
 Following figure have multiple statements about the same subject. The object can be a URI or literal value.
 
